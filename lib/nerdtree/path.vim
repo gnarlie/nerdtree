@@ -57,6 +57,10 @@ function! s:Path.cacheDisplayString()
     if self.isReadOnly
         let self.cachedDisplayString .=  ' [RO]'
     endif
+
+    if self.isIgnored
+        let self.cachedDisplayString .= ' •'
+    endif
 endfunction
 
 "FUNCTION: Path.changeToDir() {{{1
@@ -477,12 +481,16 @@ function! s:Path.readInfoFromDisk(fullpath)
     let self.isReadOnly = 0
     if isdirectory(a:fullpath)
         let self.isDirectory = 1
+        let self.isIgnored = 0
     elseif filereadable(a:fullpath)
         let self.isDirectory = 0
         let self.isReadOnly = filewritable(a:fullpath) ==# 0
+        let l:status = system("git status  --ignored --porcelain " . a:fullpath)
+        let self.isIgnored =  matchstr(l:status, "^!!") == "!!"
     else
         throw "NERDTree.InvalidArgumentsError: Invalid path = " . a:fullpath
     endif
+
 
     let self.isExecutable = 0
     if !self.isDirectory

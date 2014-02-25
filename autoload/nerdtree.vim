@@ -941,6 +941,9 @@ function! nerdtree#stripMarkupFromLine(line, removeLeadingSpaces)
     "strip off any executable flags
     let line = substitute (line, '*\ze\($\| \)', "","")
 
+    "strip off ignored flag
+    let line = substitute(line, ' •', "","")
+
     let wasdir = 0
     if line =~# '/$'
         let wasdir = 1

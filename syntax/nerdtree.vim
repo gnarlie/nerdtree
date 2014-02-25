@@ -3,6 +3,7 @@ let s:tree_up_dir_line = '.. (up a dir)'
 "how things should be highlighted
 syn match NERDTreeFlag #\~#
 syn match NERDTreeFlag #\[RO\]#
+syn match NERDTreeFlag #•#
 
 "highlighting for the .. (up dir) line at the top of the tree
 execute "syn match NERDTreeUp #\\V". s:tree_up_dir_line ."#"
@@ -26,6 +27,9 @@ syn match NERDTreeToggleOn #".*(on)#hs=e-2,he=e-1 contains=NERDTreeHelpKey
 syn match NERDTreeToggleOff #".*(off)#hs=e-3,he=e-1 contains=NERDTreeHelpKey
 syn match NERDTreeHelpCommand #" :.\{-}\>#hs=s+3
 syn match NERDTreeHelp  #^".*# contains=NERDTreeHelpKey,NERDTreeHelpTitle,NERDTreeFlag,NERDTreeToggleOff,NERDTreeToggleOn,NERDTreeHelpCommand
+
+"highlighting for ignored files
+syn match NERDTreeIgnore #.*•#hs=s+2 contains=NERDTreeFlag,NERDTreeBookmark,NERDTreePart,NERDTreePartFile
 
 "highlighting for readonly files
 syn match NERDTreeRO #.*\[RO\]#hs=s+2 contains=NERDTreeFlag,NERDTreeBookmark,NERDTreePart,NERDTreePartFile
@@ -83,6 +87,7 @@ hi def link NERDTreeLink Macro
 hi def link NERDTreeOpenable Title
 hi def link NERDTreeFlag ignore
 hi def link NERDTreeRO WarningMsg
+hi def link NERDTreeIgnore NonText
 hi def link NERDTreeBookmark Statement
 
 hi def link NERDTreeCurrentNode Search
